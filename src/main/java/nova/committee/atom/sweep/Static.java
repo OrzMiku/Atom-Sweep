@@ -1,7 +1,13 @@
 package nova.committee.atom.sweep;
 
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import net.luckperms.api.LuckPermsProvider;
+import net.luckperms.api.cacheddata.CachedPermissionData;
+import net.luckperms.api.util.Tristate;
+import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.server.ServerLifecycleHooks;
 import nova.committee.atom.sweep.init.config.SweepConfig;
 import org.apache.logging.log4j.LogManager;
@@ -9,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.nio.file.Path;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Description:
@@ -24,7 +31,7 @@ public class Static {
     public static SweepConfig config;
 
     public static MinecraftServer SERVER = ServerLifecycleHooks.getCurrentServer();
-
+    public static boolean isLuckPerms = false;
 
     public static void sendMessageToAllPlayers(Component message, boolean actionBar) {
         new Thread(() -> Optional.ofNullable(SERVER).ifPresent(server -> server.getPlayerList().getPlayers()
@@ -42,6 +49,42 @@ public class Static {
         new Thread(() -> Optional.ofNullable(SERVER).ifPresent(server -> server.getPlayerList()
                 .broadcastSystemMessage(Component.literal(String.format(message, args)), false)))
                 .start();
+    }
+
+
+    public static Boolean hasPermission(ServerPlayer playerEntity, String permission) throws CommandSyntaxException {
+        AtomicReference<Boolean> exist = new AtomicReference<>(false);
+
+        LuckPermsProvider.get().getUserManager().loadUser(playerEntity.getUUID())
+                .thenApplyAsync(user -> {
+                    CachedPermissionData permissionData = user.getCachedData()
+                            .getPermissionData(user.getQueryOptions());
+                    Tristate tristate = permissionData.checkPermission(permission);
+                    if (tristate.equals(Tristate.UNDEFINED)) {
+                        return false;
+                    }
+
+                    return tristate.asBoolean();
+                }).thenAcceptAsync(aBoolean -> {
+                    if (aBoolean)
+                        exist.set(true);
+                });
+
+        return exist.get();
+    }
+
+    public static Boolean cmdPermission(CommandSourceStack source, String permission, boolean admin) {
+        if (!Static.isLuckPerms)
+            if (admin)
+                return source.hasPermission(2);
+            else
+                return true;
+        else
+            try {
+                return Static.hasPermission(source.getPlayerOrException(), permission);
+            } catch (CommandSyntaxException e) {
+                throw new RuntimeException(e);
+            }
     }
 
 }
