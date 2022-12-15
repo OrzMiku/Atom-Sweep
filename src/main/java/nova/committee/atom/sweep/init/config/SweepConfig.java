@@ -132,7 +132,7 @@ public class SweepConfig {
         @Expose
         private boolean isMonsterEntitiesCleanupEnable = true;
         @Expose
-        private boolean isMobEntityCleanupEnable = false;
+        private boolean isMobEntityCleanupEnable = true;
         @Expose
         private boolean mobEntitiesMatchMode = true;
         @Expose
