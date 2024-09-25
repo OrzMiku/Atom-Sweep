@@ -55,7 +55,7 @@ subprojects {
     }
 
     dependencies {
-        compileOnly "net.luckperms:api:$lickperms_version"
+        implementation "net.luckperms:api:$lickperms_version"
     }
 
     tasks.withType(JavaCompile).configureEach {
