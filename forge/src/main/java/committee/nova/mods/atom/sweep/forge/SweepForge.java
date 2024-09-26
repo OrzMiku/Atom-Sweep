@@ -16,12 +16,13 @@ import net.minecraftforge.fml.common.Mod;
 import static committee.nova.mods.atom.sweep.common.config.ModConfig.COMMON;
 
 @Mod(Constants.MOD_ID)
+@Mod.EventBusSubscriber
 public class SweepForge {
 
     public SweepForge() {
         SweepCommon.init();
         ModLoadingContext.get().registerConfig(net.minecraftforge.fml.config.ModConfig.Type.COMMON, COMMON);
-        MinecraftForge.EVENT_BUS.register(this);
+        //MinecraftForge.EVENT_BUS.register(this);
     }
 
     @SubscribeEvent

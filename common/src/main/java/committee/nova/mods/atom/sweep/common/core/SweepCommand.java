@@ -26,22 +26,27 @@ public class SweepCommand {
                         .then(
                                 Commands.literal("items")
                                         .executes(SweepCommand::itemsExe)
+                                        .requires(context -> Constants.cmdPermission(context, "atom.sweep.command.items", true))
                         )
                         .then(
                                 Commands.literal("monsters")
                                         .executes(SweepCommand::monstersExe)
+                                        .requires(context -> Constants.cmdPermission(context, "atom.sweep.command.monsters", true))
                         )
                         .then(
                                 Commands.literal("animals")
                                         .executes(SweepCommand::animalsExe)
+                                        .requires(context -> Constants.cmdPermission(context, "atom.sweep.command.animals", true))
                         )
                         .then(
                                 Commands.literal("others")
                                         .executes(SweepCommand::othersExe)
+                                        .requires(context -> Constants.cmdPermission(context, "atom.sweep.command.others", true))
                         )
                         .then(
                                 Commands.literal("xps")
                                         .executes(SweepCommand::xpsExe)
+                                        .requires(context -> Constants.cmdPermission(context, "atom.sweep.command.xps", true))
                         )
                         .then(
                                 Commands.literal("itemWhite")
@@ -54,6 +59,7 @@ public class SweepCommand {
                                                    Commands.literal("del")
                                                            .executes(SweepCommand::itemWhiteDel)
                                            )
+                                        .requires(context -> Constants.cmdPermission(context, "atom.sweep.command.itemWhite", true))
                         )
                         .then(
                                 Commands.literal("itemBlack")
@@ -66,6 +72,7 @@ public class SweepCommand {
                                                 Commands.literal("del")
                                                         .executes(SweepCommand::itemBlackDel)
                                         )
+                                        .requires(context -> Constants.cmdPermission(context, "atom.sweep.command.itemBlack", true))
                         )
 
 //                        .then(
