@@ -2,7 +2,7 @@ package committee.nova.mods.atom.sweep.common.core.model;
 
 
 import committee.nova.mods.atom.sweep.common.config.ModConfig;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -19,7 +19,7 @@ public class ASItem {
 
     public ASItem(ItemEntity entity) {
         this.entity = entity;
-        this.registryName = BuiltInRegistries.ITEM.getKey(this.entity.getItem().getItem());
+        this.registryName = Registry.ITEM.getKey(this.entity.getItem().getItem());
     }
 
     /**

@@ -7,6 +7,8 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.server.ServerAboutToStartEvent;
+import net.minecraftforge.event.server.ServerStartedEvent;
+import net.minecraftforge.event.server.ServerStoppingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -23,7 +25,7 @@ public class SweepForge {
     }
 
     @SubscribeEvent
-    public static void onServerAboutToStart(RegisterCommandsEvent event) {
+    public static void cmdRegister(RegisterCommandsEvent event) {
         SweepCommand.register(event.getDispatcher());
     }
 
@@ -33,12 +35,12 @@ public class SweepForge {
     }
 
     @SubscribeEvent
-    public static void onServerStarted(ServerAboutToStartEvent event) {
+    public static void onServerStarted(ServerStartedEvent event) {
         SweepCommon.onServerStarted(event.getServer());
     }
 
     @SubscribeEvent
-    public static void onServerStopping(ServerAboutToStartEvent event) {
+    public static void onServerStopping(ServerStoppingEvent event) {
         SweepCommon.onServerStopping(event.getServer());
     }
 

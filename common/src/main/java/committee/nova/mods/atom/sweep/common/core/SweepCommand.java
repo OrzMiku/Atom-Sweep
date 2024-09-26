@@ -8,7 +8,7 @@ import committee.nova.mods.atom.sweep.common.config.ModConfig;
 import committee.nova.mods.atom.sweep.common.config.Config;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 
 
@@ -89,8 +89,7 @@ public class SweepCommand {
     private static int itemWhiteAdd(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         var player = context.getSource().getPlayerOrException();
         var itemStack = player.getMainHandItem();
-        BuiltInRegistries.ITEM.getKey(itemStack.getItem());
-        ModConfig.itemEntitiesWhitelist.get().add(BuiltInRegistries.ITEM.getKey(itemStack.getItem()).toString());
+        ModConfig.itemEntitiesWhitelist.get().add(Registry.ITEM.getKey(itemStack.getItem()).toString());
         Config.write(ModConfig.class);
         player.sendSystemMessage(Component.literal("已经添加到白名单"));
         return 1;
@@ -99,8 +98,7 @@ public class SweepCommand {
     private static int itemWhiteDel(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         var player = context.getSource().getPlayerOrException();
         var itemStack = player.getMainHandItem();
-        BuiltInRegistries.ITEM.getKey(itemStack.getItem());
-        ModConfig.itemEntitiesWhitelist.get().add(BuiltInRegistries.ITEM.getKey(itemStack.getItem()).toString());
+        ModConfig.itemEntitiesWhitelist.get().add(Registry.ITEM.getKey(itemStack.getItem()).toString());
         Config.write(ModConfig.class);
         player.sendSystemMessage(Component.literal("已经从白名单移除"));
         return 1;
@@ -109,8 +107,7 @@ public class SweepCommand {
     private static int itemBlackAdd(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         var player = context.getSource().getPlayerOrException();
         var itemStack = player.getMainHandItem();
-        BuiltInRegistries.ITEM.getKey(itemStack.getItem());
-        ModConfig.itemEntitiesBlacklist.get().add(BuiltInRegistries.ITEM.getKey(itemStack.getItem()).toString());
+        ModConfig.itemEntitiesBlacklist.get().add(Registry.ITEM.getKey(itemStack.getItem()).toString());
         Config.write(ModConfig.class);
         player.sendSystemMessage(Component.literal("已经添加到白名单"));
         return 1;
@@ -119,8 +116,7 @@ public class SweepCommand {
     private static int itemBlackDel(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         var player = context.getSource().getPlayerOrException();
         var itemStack = player.getMainHandItem();
-        BuiltInRegistries.ITEM.getKey(itemStack.getItem());
-        ModConfig.itemEntitiesBlacklist.get().remove(BuiltInRegistries.ITEM.getKey(itemStack.getItem()).toString());
+        ModConfig.itemEntitiesBlacklist.get().remove(Registry.ITEM.getKey(itemStack.getItem()).toString());
         Config.write(ModConfig.class);
         player.sendSystemMessage(Component.literal("已经从白名单移除"));
         return 1;
@@ -139,8 +135,7 @@ public class SweepCommand {
     private static int entityWhiteDel(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         var player = context.getSource().getPlayerOrException();
         var itemStack = player.getMainHandItem();
-        BuiltInRegistries.ITEM.getKey(itemStack.getItem());
-        ModConfig.itemEntitiesWhitelist.get().remove(BuiltInRegistries.ITEM.getKey(itemStack.getItem()).toString());
+        ModConfig.itemEntitiesWhitelist.get().remove(Registry.ITEM.getKey(itemStack.getItem()).toString());
         Config.write(ModConfig.class);
         player.sendSystemMessage(Component.literal("已经从白名单移除"));
         return 1;
