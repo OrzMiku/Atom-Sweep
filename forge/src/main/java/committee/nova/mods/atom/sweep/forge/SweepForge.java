@@ -47,7 +47,7 @@ public class SweepForge {
     @SubscribeEvent
     public static void onServerTick(TickEvent.ServerTickEvent event) {
         if (event.phase == TickEvent.Phase.END) {
-            SweepCommon.onServerTick(event.getServer());
+            SweepCommon.onServerTick(Constants.SERVER);
         }
     }
 }

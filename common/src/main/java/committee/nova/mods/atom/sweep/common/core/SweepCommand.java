@@ -6,10 +6,12 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import committee.nova.mods.atom.sweep.common.Constants;
 import committee.nova.mods.atom.sweep.common.config.ModConfig;
 import committee.nova.mods.atom.sweep.common.config.Config;
+import net.minecraft.Util;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.Registry;
-import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.ChatType;
+import net.minecraft.network.chat.TextComponent;
 
 
 /**
@@ -91,7 +93,7 @@ public class SweepCommand {
         var itemStack = player.getMainHandItem();
         ModConfig.itemEntitiesWhitelist.get().add(Registry.ITEM.getKey(itemStack.getItem()).toString());
         Config.write(ModConfig.class);
-        player.sendSystemMessage(Component.literal("已经添加到白名单"));
+        player.sendMessage(new TextComponent("已经添加到白名单"), ChatType.SYSTEM, Util.NIL_UUID);
         return 1;
     }
 
@@ -100,7 +102,7 @@ public class SweepCommand {
         var itemStack = player.getMainHandItem();
         ModConfig.itemEntitiesWhitelist.get().add(Registry.ITEM.getKey(itemStack.getItem()).toString());
         Config.write(ModConfig.class);
-        player.sendSystemMessage(Component.literal("已经从白名单移除"));
+        player.sendMessage(new TextComponent("已经从白名单移除"), ChatType.SYSTEM, Util.NIL_UUID);
         return 1;
     }
 
@@ -109,7 +111,7 @@ public class SweepCommand {
         var itemStack = player.getMainHandItem();
         ModConfig.itemEntitiesBlacklist.get().add(Registry.ITEM.getKey(itemStack.getItem()).toString());
         Config.write(ModConfig.class);
-        player.sendSystemMessage(Component.literal("已经添加到白名单"));
+        player.sendMessage(new TextComponent("已经添加到白名单"), ChatType.SYSTEM, Util.NIL_UUID);
         return 1;
     }
 
@@ -118,7 +120,7 @@ public class SweepCommand {
         var itemStack = player.getMainHandItem();
         ModConfig.itemEntitiesBlacklist.get().remove(Registry.ITEM.getKey(itemStack.getItem()).toString());
         Config.write(ModConfig.class);
-        player.sendSystemMessage(Component.literal("已经从白名单移除"));
+        player.sendMessage(new TextComponent("已经从白名单移除"), ChatType.SYSTEM, Util.NIL_UUID);
         return 1;
     }
 
@@ -128,7 +130,7 @@ public class SweepCommand {
         //BuiltInRegistries.ITEM.getKey(player.level().getE);
         //ModConfig.itemsClean.addItemEntitiesWhitelist(BuiltInRegistries.ITEM.getKey(lookAngle.getItem()).toString());
         Config.write(ModConfig.class);
-        player.sendSystemMessage(Component.literal("已经添加到白名单"));
+        player.sendMessage(new TextComponent("已经添加到白名单"), ChatType.SYSTEM, Util.NIL_UUID);
         return 1;
     }
 
@@ -137,7 +139,7 @@ public class SweepCommand {
         var itemStack = player.getMainHandItem();
         ModConfig.itemEntitiesWhitelist.get().remove(Registry.ITEM.getKey(itemStack.getItem()).toString());
         Config.write(ModConfig.class);
-        player.sendSystemMessage(Component.literal("已经从白名单移除"));
+        player.sendMessage(new TextComponent("已经从白名单移除"), ChatType.SYSTEM, Util.NIL_UUID);
         return 1;
     }
 
